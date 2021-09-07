@@ -1,29 +1,58 @@
 <template>
-  <div class="d-flex justify-content-center">
+  <div class="d-flex justify-content-center center">
     <div v-if="showScore">
-      <b-card title="Results" style="max-width: 20rem">You Scored {{ score }} of {{ questions.length }}</b-card>
+      <b-card title="Results" style="max-width: 20rem">
+        You Scored {{ score }} of {{ questions.length }}
+        <br />
+        <br />
+        <b-text v-if="score === 7">
+          You got all of the answers correct, which means you must be a huge fan. Thanks for playing!
+        </b-text>
+        <b-text v-if="score <= 2">
+          You got two or less answers correct. Have you EVER watched the show? Thanks for playing!
+        </b-text>
+        <b-text v-if="score > 2 && score < 7">
+          You got most of the answers correct, but not all, which means it's time to rewatch the show. Thanks for
+          playing!
+        </b-text>
+        <br />
+        <br />
+        <b-text v-if="score <= 8">
+          Created by
+          <b>Ian Belfatto</b>
+        </b-text>
+      </b-card>
     </div>
     <div class="card-q" v-else>
       <span v-if="!startQuiz">
         <b-card title="Futurama Quiz" style="max-width: 20rem" class="mb-2">
-          <b-card-text></b-card-text>
-          <b-button @click="startQuizFunc()">Start Quiz</b-button>
+          <b-card-text>Test your Futurama knowledge with these 7 questions!</b-card-text>
+          <b-button variant="danger" @click="startQuizFunc()">Start Quiz</b-button>
+        </b-card>
+        <b-card>
+          Created by
+          <b>Ian Belfatto</b>
+          <br />
+          Powered by
+          <b>Vue.js, Javascript, HTML, CSS, BootstrapVue, GIFs from Google Images</b>
         </b-card>
       </span>
       <span v-else>
-        <b-card title="Simple Quiz Application" style="max-width: 20rem" class="mb-2">
+        <b-card title="Futurama Quiz" style="max-width: 20rem" class="mb-2">
           <b-card-text>Question No.{{ currentQuestion + 1 }} of {{ questions.length }}</b-card-text>
           <br />
-          <b-progress variant="warning" :max="30" :value="countDown" height="4px"></b-progress>
+          <b-progress variant="dark" :max="30" :value="countDown" height="4px"></b-progress>
 
           <b-card-text>
             <span style="font-size: 40px">
               <strong>{{ countDown }}</strong>
             </span>
           </b-card-text>
-          <div>
-            <img v-bind:src="questions[currentQuestion].questionImage" alt="" />
-          </div>
+          <b-card-img v-bind:src="questions[currentQuestion].questionImage" class="card-img" />
+          <br />
+          <br />
+          <!-- <img v-bind:src="questions[currentQuestion].questionImage" alt="" />
+          </b-card-img> -->
           <b-card-text>
             {{ questions[currentQuestion].questionText }}
           </b-card-text>
@@ -57,7 +86,7 @@ export default {
 
       questions: [
         {
-          questionImage: require("../assets/Question1.gif"),
+          questionImage: require("../assets/Q1.gif"),
           questionText: "What is Bender's full name?",
           answerOptions: [
             { answerText: "Bender Robot Rodriguez", isCorrect: false },
@@ -67,7 +96,7 @@ export default {
           ],
         },
         {
-          questionImage: require("../assets/Question2.gif"),
+          questionImage: require("../assets/Q2.gif"),
           questionText: "How many years did Seymour the Dog wait for Fry outside Panucci's Pizza?",
           answerOptions: [
             { answerText: "4", isCorrect: false },
@@ -77,6 +106,7 @@ export default {
           ],
         },
         {
+          questionImage: require("../assets/Q3.gif"),
           questionText: "What is Fry's PIN number?",
           answerOptions: [
             { answerText: "1577", isCorrect: false },
@@ -86,15 +116,17 @@ export default {
           ],
         },
         {
+          questionImage: require("../assets/Q4.jpeg"),
           questionText: "What is the name of Leela's old martial arts teacher?",
           answerOptions: [
-            { answerText: "Master Fnaw", isCorrect: true },
-            { answerText: "Master Fnog", isCorrect: false },
+            { answerText: "Master Fnaw", isCorrect: false },
+            { answerText: "Master Fnog", isCorrect: true },
             { answerText: "Master Fnork", isCorrect: false },
             { answerText: "Master Fnark", isCorrect: false },
           ],
         },
         {
+          questionImage: require("../assets/Q5.gif"),
           questionText: "In 'Parasite's Lost', what does Fry eat that gives him super-human abilities?",
           answerOptions: [
             { answerText: "Egg Salad Sandwich", isCorrect: true },
@@ -104,6 +136,7 @@ export default {
           ],
         },
         {
+          questionImage: require("../assets/Q6.gif"),
           questionText: "What planet does Santa Claus live on?",
           answerOptions: [
             { answerText: "Mars", isCorrect: false },
@@ -113,6 +146,7 @@ export default {
           ],
         },
         {
+          questionImage: require("../assets/Q7.gif"),
           questionText: "In 'Bednin' in the Wind' which musician does Bender bring on tour with him?",
           answerOptions: [
             { answerText: "Bob Dylan", isCorrect: false },
@@ -163,12 +197,15 @@ export default {
 <style scoped>
 .card {
   min-width: 100%;
-  /* border-radius: 15px; */
+  /* border-radius: 50px; */
   padding: 20px;
   /* box-shadow: 10px 10px 42px 0px rgba(0, 0, 0, 0.75); */
+  /* border-color: transparent; */
+  background-color: whitesmoke;
 }
 .card-q {
   min-width: 60%;
+  padding: 20px;
 }
 .ans-option-btn {
   min-width: 50%;
@@ -198,6 +235,26 @@ export default {
 .card-img-top {
   border-top-left-radius: calc(0.25rem - 1px);
   border-top-right-radius: calc(0.25rem - 1px);
-  height: 350px;
+  height: 300px;
+  width: 500px;
+}
+
+@media only screen and (max-width: 969px) {
+  /* Mobile Phones */
+  [class*="card-img"] {
+    height: 100%;
+    width: 100%;
+  }
+}
+
+html,
+div {
+  font-family: "Quicksand", "PT Sans", sans-serif;
+}
+
+.center {
+  padding: 30px 0;
+  border: 3px solid transparent;
+  text-align: center;
 }
 </style>
