@@ -27,7 +27,7 @@
       <span v-if="!startQuiz">
         <b-card title="Futurama Quiz" style="max-width: 20rem" class="mb-2">
           <b-card-text>Test your Futurama knowledge with these 7 questions!</b-card-text>
-          <b-button variant="danger" @click="startQuizFunc()">Start Quiz</b-button>
+          <b-button pill variant="danger" @click="startQuizFunc()">Start</b-button>
         </b-card>
         <b-card>
           Created by
@@ -41,7 +41,7 @@
         <b-card title="Futurama Quiz" style="max-width: 20rem" class="mb-2">
           <b-card-text>Question No.{{ currentQuestion + 1 }} of {{ questions.length }}</b-card-text>
           <br />
-          <b-progress variant="dark" :max="30" :value="countDown" height="4px"></b-progress>
+          <b-progress variant="secondary" :max="30" :value="countDown" height="4px"></b-progress>
 
           <b-card-text>
             <span style="font-size: 40px">
@@ -58,11 +58,12 @@
           </b-card-text>
           <div class="answer-section">
             <b-button
+              squared
               :key="index"
               v-for="(option, index) in questions[currentQuestion].answerOptions"
               @click="handleAnswerClick(option.isCorrect)"
               class="ans-option-btn"
-              variant="primary"
+              variant="secondary"
             >
               {{ option.answerText }}
             </b-button>
