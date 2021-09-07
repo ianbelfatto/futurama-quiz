@@ -22,7 +22,7 @@
             </span>
           </b-card-text>
           <div>
-            {{ questions[currentQuestion].questionImage }}
+            <img v-bind:src="questions[currentQuestion].questionImage" alt="" />
           </div>
           <b-card-text>
             {{ questions[currentQuestion].questionText }}
@@ -57,7 +57,7 @@ export default {
 
       questions: [
         {
-          questionImage: "https://i.imgur.com/YKqeyhv.gif",
+          questionImage: require("../assets/Question1.gif"),
           questionText: "What is Bender's full name?",
           answerOptions: [
             { answerText: "Bender Robot Rodriguez", isCorrect: false },
@@ -67,6 +67,7 @@ export default {
           ],
         },
         {
+          questionImage: require("../assets/Question2.gif"),
           questionText: "How many years did Seymour the Dog wait for Fry outside Panucci's Pizza?",
           answerOptions: [
             { answerText: "4", isCorrect: false },
@@ -162,7 +163,7 @@ export default {
 <style scoped>
 .card {
   min-width: 100%;
-  border-radius: 15px;
+  /* border-radius: 15px; */
   padding: 20px;
   /* box-shadow: 10px 10px 42px 0px rgba(0, 0, 0, 0.75); */
 }
